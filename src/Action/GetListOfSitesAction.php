@@ -9,7 +9,7 @@ namespace YandexWebmaster\Action;
 use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 
-final class GetListOfSites implements ActionInterface
+final class GetListOfSitesAction implements ActionInterface
 {
     /**
      * @var Token
