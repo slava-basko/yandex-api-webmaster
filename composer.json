@@ -1,0 +1,24 @@
+{
+    "name": "slava-basko/yandex-api-webmaster",
+    "description": "Client for yandex Webmaster",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Slava Basko",
+            "email": "basko.slava@gmail.com"
+        }
+    ],
+    "keywords": [
+        "Yandex",
+        "Yandex Webmaster",
+        "API"
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Yandex\\": "src/"
+        }
+    }
+}
