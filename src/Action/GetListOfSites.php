@@ -46,6 +46,6 @@ final class GetListOfSites implements ActionInterface
      */
     public function getToken()
     {
-        return $this->getToken();
+        return $this->token;
     }
 }
