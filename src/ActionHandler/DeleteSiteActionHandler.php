@@ -10,19 +10,18 @@ use Yandex\ActionHandler\ActionHandlerInterface;
 use Yandex\Http\Response;
 use Yandex\Utils\Hash;
 use Yandex\Utils\SimpleXMLReader;
-use YandexWebmaster\Exception\CanNotAddSiteException;
+use YandexWebmaster\Exception\CanNotDeleteSiteException;
 
-class AddSiteActionHandler implements ActionHandlerInterface
+class DeleteSiteActionHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response
-     * @return string
-     * @throws CanNotAddSiteException
-     * @throws \Exception
+     * @return bool
+     * @throws CanNotDeleteSiteException
      */
     public function handle(Response $response)
     {
-        if ($response->getStatusCode() != 201) {
+        if ($response->getStatusCode() != 204) {
             $reasonBody = '';
 
             $reader = new SimpleXMLReader;
@@ -42,16 +41,9 @@ class AddSiteActionHandler implements ActionHandlerInterface
             $reader->parse();
             $reader->close();
 
-            throw new CanNotAddSiteException($reasonBody);
+            throw new CanNotDeleteSiteException($reasonBody);
         }
 
-        if (isset($response->getHeaders()['Location']) == false) {
-            throw new \Exception('Can not find Location header in response.');
-        }
-
-        $parts = explode('/', $response->getHeaders()['Location']);
-        $parts = array_filter($parts);
-
-        return end($parts);
+        return true;
     }
 }
