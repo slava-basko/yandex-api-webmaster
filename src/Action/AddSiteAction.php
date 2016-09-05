@@ -6,7 +6,7 @@
 
 namespace YandexWebmaster\Action;
 
-
+use XMLWriter;
 use Yandex\Action\ActionInterface;
 use Yandex\Action\DataActionInterface;
 use Yandex\Auth\Token;
@@ -61,8 +61,18 @@ final class AddSiteAction implements ActionInterface, DataActionInterface
         return $this->token;
     }
 
+    /**
+     * @return string
+     */
     public function getBody()
     {
-        return '';
+        $writer = new XMLWriter();
+        $writer->openMemory();
+        $writer->setIndent(4);
+        $writer->startElement('host');
+            $writer->writeElement('name', $this->domainName);
+        $writer->endElement();
+
+        return $writer->outputMemory();
     }
 }
