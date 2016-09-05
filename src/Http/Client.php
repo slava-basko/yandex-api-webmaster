@@ -8,10 +8,12 @@ namespace YandexWebmaster\Http;
 
 use YandexWebmaster\Action\AddOriginalTextAction;
 use YandexWebmaster\Action\AddSiteAction;
+use YandexWebmaster\Action\DeleteOriginalTextAction;
 use YandexWebmaster\Action\DeleteSiteAction;
 use YandexWebmaster\Action\GetListOfSitesAction;
 use YandexWebmaster\ActionHandler\AddOriginalTextActionHandler;
 use YandexWebmaster\ActionHandler\AddSiteActionHandler;
+use YandexWebmaster\ActionHandler\DeleteOriginalTextActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
 
@@ -24,6 +26,7 @@ class Client extends \Yandex\Http\Client
         GetListOfSitesAction::class => GetListOfSitesHandler::class,
         AddSiteAction::class => AddSiteActionHandler::class,
         DeleteSiteAction::class => DeleteSiteActionHandler::class,
-        AddOriginalTextAction::class => AddOriginalTextActionHandler::class
+        AddOriginalTextAction::class => AddOriginalTextActionHandler::class,
+        DeleteOriginalTextAction::class => DeleteOriginalTextActionHandler::class
     ];
 }

@@ -6,12 +6,11 @@
 
 namespace YandexWebmaster\Action;
 
-use XMLWriter;
+
 use Yandex\Action\ActionInterface;
-use Yandex\Action\DataActionInterface;
 use Yandex\Auth\Token;
 
-final class AddOriginalTextAction implements ActionInterface, DataActionInterface
+final class DeleteOriginalTextAction implements ActionInterface
 {
     /**
      * @var Token
@@ -26,19 +25,19 @@ final class AddOriginalTextAction implements ActionInterface, DataActionInterfac
     /**
      * @var string
      */
-    private $text;
+    private $textId;
 
     /**
-     * AddOriginalText constructor.
+     * DeleteOriginalTextAction constructor.
      * @param Token $token
      * @param $siteId
-     * @param $text
+     * @param $textId
      */
-    public function __construct(Token $token, $siteId, $text)
+    public function __construct(Token $token, $siteId, $textId)
     {
         $this->token = $token;
         $this->siteId = $siteId;
-        $this->text = $text;
+        $this->textId = $textId;
     }
 
     /**
@@ -46,7 +45,7 @@ final class AddOriginalTextAction implements ActionInterface, DataActionInterfac
      */
     public function getUrl()
     {
-        return '/hosts/' . $this->siteId . '/original-texts';
+        return '/hosts/' . $this->siteId . '/original-texts/' . $this->textId;
     }
 
     /**
@@ -54,7 +53,7 @@ final class AddOriginalTextAction implements ActionInterface, DataActionInterfac
      */
     public function getHttpMethod()
     {
-        return 'post';
+        return 'delete';
     }
 
     /**
@@ -63,20 +62,5 @@ final class AddOriginalTextAction implements ActionInterface, DataActionInterfac
     public function getToken()
     {
         return $this->token;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBody()
-    {
-        $writer = new XMLWriter();
-        $writer->openMemory();
-        $writer->setIndent(4);
-        $writer->startElement('original-text');
-            $writer->writeElement('content', $this->text);
-        $writer->endElement();
-
-        return $writer->outputMemory();
     }
 }
