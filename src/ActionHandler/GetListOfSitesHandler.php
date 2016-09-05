@@ -49,6 +49,8 @@ final class GetListOfSitesHandler implements ActionHandlerInterface
             $host['indexCount'] = (int)$element->{'index-count'};
 
             $sites[] = Site::fromArray($host);
+
+            return true;
         });
         $reader->parse();
         $reader->close();

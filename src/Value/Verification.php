@@ -6,7 +6,7 @@
 
 namespace YandexWebmaster\Value;
 
-class Verification
+final class Verification
 {
     /**
      * @var string
