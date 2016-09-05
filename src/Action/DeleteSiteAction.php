@@ -9,7 +9,7 @@ namespace YandexWebmaster\Action;
 use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 
-class DeleteSiteAction implements ActionInterface
+final class DeleteSiteAction implements ActionInterface
 {
     /**
      * @var Token

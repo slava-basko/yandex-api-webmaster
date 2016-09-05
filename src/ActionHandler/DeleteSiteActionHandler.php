@@ -12,7 +12,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\SimpleXMLReader;
 use YandexWebmaster\Exception\CanNotDeleteSiteException;
 
-class DeleteSiteActionHandler implements ActionHandlerInterface
+final class DeleteSiteActionHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response

@@ -12,7 +12,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\SimpleXMLReader;
 use YandexWebmaster\Exception\CanNotAddSiteException;
 
-class AddSiteActionHandler implements ActionHandlerInterface
+final class AddSiteActionHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response
