@@ -6,34 +6,35 @@
 
 namespace YandexWebmaster\Action;
 
-use XMLWriter;
 use Yandex\Action\ActionInterface;
 use Yandex\Action\DataActionInterface;
 use Yandex\Auth\Token;
+use Yandex\Utils\Json;
+use YandexWebmaster\Auth\User;
 
 final class AddSiteAction implements ActionInterface, DataActionInterface
 {
-    /**
-     * @var Token
-     */
-    private $token;
-
     /**
      * @var string
      */
     private $domainName;
 
     /**
-     * GetListOfSites constructor.
-     * @param Token $token
-     * @param string $domainName
+     * @var User
      */
-    public function __construct(Token $token, $domainName)
+    private $user;
+
+    /**
+     * AddSiteAction constructor.
+     * @param User $user
+     * @param $domainName
+     */
+    public function __construct(User $user, $domainName)
     {
         if (\Yandex\isValidDomainName($domainName) == false) {
             throw new \InvalidArgumentException('Invalid domain name.');
         }
-        $this->token = $token;
+        $this->user = $user;
         $this->domainName = $domainName;
     }
 
@@ -42,7 +43,7 @@ final class AddSiteAction implements ActionInterface, DataActionInterface
      */
     public function getUrl()
     {
-        return '/hosts';
+        return sprintf('/%s/hosts', $this->user->getUserId());
     }
 
     /**
@@ -58,7 +59,7 @@ final class AddSiteAction implements ActionInterface, DataActionInterface
      */
     public function getToken()
     {
-        return $this->token;
+        return $this->user->getToken();
     }
 
     /**
@@ -66,13 +67,8 @@ final class AddSiteAction implements ActionInterface, DataActionInterface
      */
     public function getBody()
     {
-        $writer = new XMLWriter();
-        $writer->openMemory();
-        $writer->setIndent(4);
-        $writer->startElement('host');
-            $writer->writeElement('name', $this->domainName);
-        $writer->endElement();
-
-        return $writer->outputMemory();
+        return Json::encode([
+            'host_url' => $this->domainName
+        ]);
     }
 }

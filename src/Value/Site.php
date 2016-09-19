@@ -11,81 +11,49 @@ final class Site
     /**
      * @var string
      */
-    private $selfLink;
+    private $hostId;
 
     /**
      * @var string
      */
-    private $name;
-
-    /**
-     * @var Verification
-     */
-    private $verification;
-
-    /**
-     * @var Crawling
-     */
-    private $crawling;
+    private $asciiHostUrl;
 
     /**
      * @var string
      */
-    private $virused;
+    private $unicodeHostUrl;
 
     /**
      * @var string
      */
-    private $lastAccess;
+    private $verified;
 
     /**
-     * @var float|int
+     * @var null|array
      */
-    private $tic;
-
-    /**
-     * @var int
-     */
-    private $urlCount;
-
-    /**
-     * @var int
-     */
-    private $indexCount;
+    private $mainMirror;
 
     /**
      * Site constructor.
-     * @param $selfLink
-     * @param $name
-     * @param Verification $verification
-     * @param Crawling $crawling
-     * @param $virused
-     * @param $lastAccess
-     * @param $tic
-     * @param $urlCount
-     * @param $indexCount
+     * @param $hostId
+     * @param $asciiHostUrl
+     * @param $unicodeHostUrl
+     * @param $verified
+     * @param $mainMirror
      */
     public function __construct(
-        $selfLink,
-        $name,
-        Verification $verification,
-        Crawling $crawling,
-        $virused,
-        $lastAccess,
-        $tic,
-        $urlCount,
-        $indexCount
+        $hostId,
+        $asciiHostUrl,
+        $unicodeHostUrl,
+        $verified,
+        $mainMirror
     )
     {
-        $this->selfLink = $selfLink;
-        $this->name = $name;
-        $this->verification = $verification;
-        $this->crawling = $crawling;
-        $this->virused = $virused;
-        $this->lastAccess = $lastAccess;
-        $this->tic = $tic;
-        $this->urlCount = $urlCount;
-        $this->indexCount = $indexCount;
+        $this->hostId = $hostId;
+        $this->asciiHostUrl = $asciiHostUrl;
+        $this->unicodeHostUrl = $unicodeHostUrl;
+        $this->verified = $verified;
+        $this->mainMirror = $mainMirror;
     }
 
     /**
@@ -95,87 +63,51 @@ final class Site
     public static function fromArray(array $data)
     {
         return new self(
-            isset($data['selfLink']) ? $data['selfLink'] : '',
-            isset($data['name']) ? $data['name'] : '',
-            isset($data['verification']) ? $data['verification'] : '',
-            isset($data['crawling']) ? $data['crawling'] : '',
-            isset($data['virused']) ? $data['virused'] : '',
-            isset($data['lastAccess']) ? $data['lastAccess'] : '',
-            isset($data['tic']) ? $data['tic'] : 0,
-            isset($data['urlCount']) ? $data['urlCount'] : 0,
-            isset($data['indexCount']) ? $data['indexCount'] : 0
+            isset($data['host_id']) ? $data['host_id'] : '',
+            isset($data['ascii_host_url']) ? $data['ascii_host_url'] : '',
+            isset($data['unicode_host_url']) ? $data['unicode_host_url'] : '',
+            isset($data['verified']) ? $data['verified'] : '',
+            isset($data['main_mirror']) ? $data['main_mirror'] : []
         );
     }
 
     /**
      * @return string
      */
-    public function getSelfLink()
+    public function getHostId()
     {
-        return $this->selfLink;
+        return $this->hostId;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getAsciiHostUrl()
     {
-        return $this->name;
-    }
-
-    /**
-     * @return Verification
-     */
-    public function getVerification()
-    {
-        return $this->verification;
-    }
-
-    /**
-     * @return Crawling
-     */
-    public function getCrawling()
-    {
-        return $this->crawling;
+        return $this->asciiHostUrl;
     }
 
     /**
      * @return string
      */
-    public function getVirused()
+    public function getUnicodeHostUrl()
     {
-        return $this->virused;
+        return $this->unicodeHostUrl;
     }
 
     /**
      * @return string
      */
-    public function getLastAccess()
+    public function getVerified()
     {
-        return $this->lastAccess;
+        return $this->verified;
     }
 
     /**
-     * @return float|int
+     * @return array|null
      */
-    public function getTic()
+    public function getMainMirror()
     {
-        return $this->tic;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUrlCount()
-    {
-        return $this->urlCount;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIndexCount()
-    {
-        return $this->indexCount;
+        return $this->mainMirror;
     }
 }

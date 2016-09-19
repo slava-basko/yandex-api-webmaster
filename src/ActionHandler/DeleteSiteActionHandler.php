@@ -8,8 +8,7 @@ namespace YandexWebmaster\ActionHandler;
 
 use Yandex\ActionHandler\ActionHandlerInterface;
 use Yandex\Http\Response;
-use Yandex\Utils\Hash;
-use Yandex\Utils\SimpleXMLReader;
+use Yandex\Utils\Json;
 use YandexWebmaster\Exception\CanNotDeleteSiteException;
 
 final class DeleteSiteActionHandler implements ActionHandlerInterface
@@ -21,29 +20,10 @@ final class DeleteSiteActionHandler implements ActionHandlerInterface
      */
     public function handle(Response $response)
     {
+        $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 204) {
-            $reasonBody = '';
-
-            $reader = new SimpleXMLReader;
-            if ($reader->XML($response->getBody()) == false) {
-                throw new \InvalidArgumentException('Invalid XML.');
-            }
-            $reader->registerCallback('error', function ($reader) use (&$reasonBody) {
-                /**
-                 * @var SimpleXMLReader $reader
-                 */
-                $element = $reader->expandSimpleXml();
-                $attributes = (array)$element->attributes();
-                $reasonBody .= Hash::get($attributes, '@attributes.code', '');
-                $reasonBody .= ' : ';
-                $reasonBody .= (string)$element->message;
-            });
-            $reader->parse();
-            $reader->close();
-
-            throw new CanNotDeleteSiteException($reasonBody);
+            throw new CanNotDeleteSiteException(implode(' ', $responseData));
         }
-
         return true;
     }
 }

@@ -6,27 +6,46 @@
 
 namespace YandexWebmaster\Http;
 
-use YandexWebmaster\Action\AddOriginalTextAction;
 use YandexWebmaster\Action\AddSiteAction;
-use YandexWebmaster\Action\DeleteOriginalTextAction;
 use YandexWebmaster\Action\DeleteSiteAction;
 use YandexWebmaster\Action\GetListOfSitesAction;
-use YandexWebmaster\ActionHandler\AddOriginalTextActionHandler;
+use YandexWebmaster\Action\GetUserIdAction;
 use YandexWebmaster\ActionHandler\AddSiteActionHandler;
-use YandexWebmaster\ActionHandler\DeleteOriginalTextActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
+use YandexWebmaster\ActionHandler\GetUserIdActionHandler;
 
-class Client extends \Yandex\Http\Client
+class Client
 {
     /**
      * @var array
      */
-    protected $actionHandlerMap = [
+    private static $actionHandlerMap = [
+        GetUserIdAction::class => GetUserIdActionHandler::class,
         GetListOfSitesAction::class => GetListOfSitesHandler::class,
         AddSiteAction::class => AddSiteActionHandler::class,
         DeleteSiteAction::class => DeleteSiteActionHandler::class,
-        AddOriginalTextAction::class => AddOriginalTextActionHandler::class,
-        DeleteOriginalTextAction::class => DeleteOriginalTextActionHandler::class
     ];
+
+    /**
+     * @param $clientId
+     * @param $clientPassword
+     * @return \Yandex\Http\Client
+     */
+    public static function create($clientId, $clientPassword)
+    {
+        $client = new \Yandex\Http\Client(
+            'https://api.webmaster.yandex.net/v3/user',
+            $clientId,
+            $clientPassword
+        );
+
+        foreach (static::$actionHandlerMap as $action => $handler) {
+            $client->addActionHandler($action, $handler);
+        }
+
+        $client->addHeader('Content-type', 'application/json');
+
+        return $client;
+    }
 }

@@ -8,21 +8,22 @@ namespace YandexWebmaster\Action;
 
 use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
+use YandexWebmaster\Auth\User;
 
 final class GetListOfSitesAction implements ActionInterface
 {
     /**
-     * @var Token
+     * @var User
      */
-    private $token;
+    private $user;
 
     /**
      * GetListOfSites constructor.
-     * @param Token $token
+     * @param User $user
      */
-    public function __construct(Token $token)
+    public function __construct(User $user)
     {
-        $this->token = $token;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +31,7 @@ final class GetListOfSitesAction implements ActionInterface
      */
     public function getUrl()
     {
-        return '/hosts';
+        return sprintf('/%s/hosts', $this->user->getUserId());
     }
 
     /**
@@ -46,6 +47,6 @@ final class GetListOfSitesAction implements ActionInterface
      */
     public function getToken()
     {
-        return $this->token;
+        return $this->user->getToken();
     }
 }

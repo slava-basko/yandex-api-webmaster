@@ -8,27 +8,28 @@ namespace YandexWebmaster\Action;
 
 use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
+use YandexWebmaster\Auth\User;
 
 final class DeleteSiteAction implements ActionInterface
 {
-    /**
-     * @var Token
-     */
-    private $token;
-
     /**
      * @var string
      */
     private $siteId;
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * DeleteSiteAction constructor.
-     * @param Token $token
+     * @param User $user
      * @param $siteId
      */
-    public function __construct(Token $token, $siteId)
+    public function __construct(User $user, $siteId)
     {
-        $this->token = $token;
+        $this->user = $user;
         $this->siteId = $siteId;
     }
 
@@ -37,7 +38,7 @@ final class DeleteSiteAction implements ActionInterface
      */
     public function getUrl()
     {
-        return '/hosts/' . $this->siteId;
+        return sprintf('/%s/hosts/%s', $this->user->getUserId(), $this->siteId);
     }
 
     /**
@@ -53,6 +54,6 @@ final class DeleteSiteAction implements ActionInterface
      */
     public function getToken()
     {
-        return $this->token;
+        return $this->user->getToken();
     }
 }

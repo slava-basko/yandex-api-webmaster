@@ -7,53 +7,36 @@
 namespace YandexWebmaster\ActionHandler;
 
 use Yandex\ActionHandler\ActionHandlerInterface;
+use Yandex\Exception\BadResponse;
 use Yandex\Http\Response;
 use Yandex\Utils\Hash;
-use Yandex\Utils\SimpleXMLReader;
-use YandexWebmaster\Value\Crawling;
+use Yandex\Utils\Json;
 use YandexWebmaster\Value\Site;
-use YandexWebmaster\Value\Verification;
 
 final class GetListOfSitesHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response
-     * @return Site[]
+     * @return array
+     * @throws BadResponse
      */
     public function handle(Response $response)
     {
-        $sites = [];
-        $reader = new SimpleXMLReader;
-
-        if ($reader->XML($response->getBody()) == false) {
-            throw new \InvalidArgumentException('Invalid XML.');
+        $responseData = Json::decode($response->getBody());
+        if (isset($responseData['hosts']) == false) {
+            throw new BadResponse('Bad response.' . var_export($responseData));
         }
 
-        $reader->registerCallback('host', function ($reader) use (&$sites) {
-            $host = [];
-            /**
-             * @var SimpleXMLReader $reader
-             */
-            $element = $reader->expandSimpleXml();
-            $attributes = $element->attributes();
-            $host['selfLink'] = Hash::get((array)$attributes, '@attributes.href');
-            $host['name'] = (string)$element->name;
-
-            $host['verification'] = new Verification(Hash::get((array)$element->verification, '@attributes.state'));
-            $host['crawling'] = new Crawling(Hash::get((array)$element->crawling, '@attributes.state'));
-
-            $host['virused'] = (string)$element->virused;
-            $host['lastAccess'] = (string)$element->{'last-access'};
-            $host['tic'] = (string)$element->tcy;
-            $host['urlCount'] = (int)$element->{'url-count'};
-            $host['indexCount'] = (int)$element->{'index-count'};
+        $sites = [];
+        foreach ($responseData['hosts'] as $siteData) {
+            $host['host_id'] = Hash::get($siteData, 'host_id');
+            $host['ascii_host_url'] = Hash::get($siteData, 'ascii_host_url');
+            $host['unicode_host_url'] = Hash::get($siteData, 'unicode_host_url');
+            $host['verified'] = Hash::get($siteData, 'verified', false);
+            $host['main_mirror'] = Hash::get($siteData, 'main_mirror', []);
 
             $sites[] = Site::fromArray($host);
-
-            return true;
-        });
-        $reader->parse();
-        $reader->close();
+        }
 
         return $sites;
     }

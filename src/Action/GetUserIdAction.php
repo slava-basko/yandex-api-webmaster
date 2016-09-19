@@ -1,16 +1,15 @@
 <?php
 /**
  * Created by Slava Basko <basko.slava@gmail.com>
- * Date: 9/5/16
+ * Date: 9/19/16
  */
 
 namespace YandexWebmaster\Action;
 
-
 use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 
-final class DeleteOriginalTextAction implements ActionInterface
+final class GetUserIdAction implements ActionInterface
 {
     /**
      * @var Token
@@ -18,26 +17,12 @@ final class DeleteOriginalTextAction implements ActionInterface
     private $token;
 
     /**
-     * @var string
-     */
-    private $siteId;
-
-    /**
-     * @var string
-     */
-    private $textId;
-
-    /**
-     * DeleteOriginalTextAction constructor.
+     * GetUserId constructor.
      * @param Token $token
-     * @param $siteId
-     * @param $textId
      */
-    public function __construct(Token $token, $siteId, $textId)
+    public function __construct(Token $token)
     {
         $this->token = $token;
-        $this->siteId = $siteId;
-        $this->textId = $textId;
     }
 
     /**
@@ -45,7 +30,7 @@ final class DeleteOriginalTextAction implements ActionInterface
      */
     public function getUrl()
     {
-        return '/hosts/' . $this->siteId . '/original-texts/' . $this->textId;
+        return '/';
     }
 
     /**
@@ -53,7 +38,7 @@ final class DeleteOriginalTextAction implements ActionInterface
      */
     public function getHttpMethod()
     {
-        return 'delete';
+        return 'get';
     }
 
     /**
