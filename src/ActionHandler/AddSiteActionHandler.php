@@ -7,7 +7,7 @@
 namespace YandexWebmaster\ActionHandler;
 
 use Yandex\ActionHandler\ActionHandlerInterface;
-use Yandex\Exception\BadResponse;
+use Yandex\Exception\BadResponseException;
 use Yandex\Http\Response;
 use Yandex\Utils\Json;
 use YandexWebmaster\Exception\CanNotAddSiteException;
@@ -17,7 +17,7 @@ final class AddSiteActionHandler implements ActionHandlerInterface
     /**
      * @param Response $response
      * @return string
-     * @throws BadResponse
+     * @throws BadResponseException
      * @throws CanNotAddSiteException
      */
     public function handle(Response $response)
@@ -27,7 +27,7 @@ final class AddSiteActionHandler implements ActionHandlerInterface
             throw new CanNotAddSiteException($responseData);
         }
         if (isset($responseData['host_id']) == false) {
-            throw new BadResponse('Bad response.' . var_export($responseData));
+            throw new BadResponseException('Bad response.' . var_export($responseData));
         }
         return $responseData['host_id'];
     }

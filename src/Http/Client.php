@@ -9,10 +9,12 @@ namespace YandexWebmaster\Http;
 use YandexWebmaster\Action\AddSiteAction;
 use YandexWebmaster\Action\DeleteSiteAction;
 use YandexWebmaster\Action\GetListOfSitesAction;
+use YandexWebmaster\Action\GetSiteAction;
 use YandexWebmaster\Action\GetUserIdAction;
 use YandexWebmaster\ActionHandler\AddSiteActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
+use YandexWebmaster\ActionHandler\GetSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetUserIdActionHandler;
 
 class Client
@@ -25,6 +27,7 @@ class Client
         GetListOfSitesAction::class => GetListOfSitesHandler::class,
         AddSiteAction::class => AddSiteActionHandler::class,
         DeleteSiteAction::class => DeleteSiteActionHandler::class,
+        GetSiteAction::class => GetSiteActionHandler::class,
     ];
 
     /**

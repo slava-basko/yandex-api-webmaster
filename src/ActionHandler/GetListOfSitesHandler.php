@@ -7,7 +7,7 @@
 namespace YandexWebmaster\ActionHandler;
 
 use Yandex\ActionHandler\ActionHandlerInterface;
-use Yandex\Exception\BadResponse;
+use Yandex\Exception\BadResponseException;
 use Yandex\Http\Response;
 use Yandex\Utils\Hash;
 use Yandex\Utils\Json;
@@ -18,13 +18,13 @@ final class GetListOfSitesHandler implements ActionHandlerInterface
     /**
      * @param Response $response
      * @return array
-     * @throws BadResponse
+     * @throws BadResponseException
      */
     public function handle(Response $response)
     {
         $responseData = Json::decode($response->getBody());
         if (isset($responseData['hosts']) == false) {
-            throw new BadResponse('Bad response.' . var_export($responseData));
+            throw new BadResponseException('Bad response.' . var_export($responseData));
         }
 
         $sites = [];

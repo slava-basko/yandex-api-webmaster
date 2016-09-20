@@ -34,19 +34,33 @@ final class Site
     private $mainMirror;
 
     /**
+     * @var null|array
+     */
+    private $hostDataStatus;
+
+    /**
+     * @var string|null
+     */
+    private $hostDisplayName;
+
+    /**
      * Site constructor.
      * @param $hostId
      * @param $asciiHostUrl
      * @param $unicodeHostUrl
      * @param $verified
      * @param $mainMirror
+     * @param $hostDataStatus
+     * @param $hostDisplayName
      */
     public function __construct(
         $hostId,
         $asciiHostUrl,
         $unicodeHostUrl,
         $verified,
-        $mainMirror
+        $mainMirror,
+        $hostDataStatus,
+        $hostDisplayName
     )
     {
         $this->hostId = $hostId;
@@ -54,6 +68,8 @@ final class Site
         $this->unicodeHostUrl = $unicodeHostUrl;
         $this->verified = $verified;
         $this->mainMirror = $mainMirror;
+        $this->hostDataStatus = $hostDataStatus;
+        $this->hostDisplayName = $hostDisplayName;
     }
 
     /**
@@ -67,7 +83,9 @@ final class Site
             isset($data['ascii_host_url']) ? $data['ascii_host_url'] : '',
             isset($data['unicode_host_url']) ? $data['unicode_host_url'] : '',
             isset($data['verified']) ? $data['verified'] : '',
-            isset($data['main_mirror']) ? $data['main_mirror'] : []
+            isset($data['main_mirror']) ? $data['main_mirror'] : [],
+            isset($data['host_data_status']) ? $data['host_data_status'] : [],
+            isset($data['host_display_name']) ? $data['host_display_name'] : []
         );
     }
 
@@ -109,5 +127,21 @@ final class Site
     public function getMainMirror()
     {
         return $this->mainMirror;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getHostDataStatus()
+    {
+        return $this->hostDataStatus;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHostDisplayName()
+    {
+        return $this->hostDisplayName;
     }
 }

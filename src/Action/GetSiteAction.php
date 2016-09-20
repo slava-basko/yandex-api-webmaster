@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Slava Basko <basko.slava@gmail.com>
- * Date: 9/5/16
+ * Date: 9/20/16
  */
 
 namespace YandexWebmaster\Action;
@@ -10,20 +10,20 @@ use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 use YandexWebmaster\Auth\User;
 
-final class DeleteSiteAction implements ActionInterface
+final class GetSiteAction implements ActionInterface
 {
-    /**
-     * @var string
-     */
-    private $hostId;
-
     /**
      * @var User
      */
     private $user;
 
     /**
-     * DeleteSiteAction constructor.
+     * @var string
+     */
+    private $hostId;
+
+    /**
+     * GetSiteAction constructor.
      * @param User $user
      * @param $hostId
      */
@@ -46,7 +46,7 @@ final class DeleteSiteAction implements ActionInterface
      */
     public function getHttpMethod()
     {
-        return 'delete';
+        return 'get';
     }
 
     /**
