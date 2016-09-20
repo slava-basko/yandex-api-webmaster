@@ -31,9 +31,6 @@ final class AddSiteAction implements ActionInterface, DataActionInterface
      */
     public function __construct(User $user, $domainName)
     {
-        if (\Yandex\isValidDomainName($domainName) == false) {
-            throw new \InvalidArgumentException('Invalid domain name.');
-        }
         $this->user = $user;
         $this->domainName = $domainName;
     }
