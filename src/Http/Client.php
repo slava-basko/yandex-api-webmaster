@@ -12,12 +12,14 @@ use YandexWebmaster\Action\GetListOfSitesAction;
 use YandexWebmaster\Action\GetSiteAction;
 use YandexWebmaster\Action\GetSiteStatAction;
 use YandexWebmaster\Action\GetUserIdAction;
+use YandexWebmaster\Action\GetSiteVerificationStatusAction;
 use YandexWebmaster\ActionHandler\AddSiteActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
 use YandexWebmaster\ActionHandler\GetSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteStatActionHandler;
 use YandexWebmaster\ActionHandler\GetUserIdActionHandler;
+use YandexWebmaster\ActionHandler\GetSiteVerificationStatusActionHandler;
 
 class Client
 {
@@ -31,6 +33,7 @@ class Client
         DeleteSiteAction::class => DeleteSiteActionHandler::class,
         GetSiteAction::class => GetSiteActionHandler::class,
         GetSiteStatAction::class => GetSiteStatActionHandler::class,
+        GetSiteVerificationStatusAction::class => GetSiteVerificationStatusActionHandler::class
     ];
 
     /**
