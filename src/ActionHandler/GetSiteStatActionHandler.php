@@ -15,7 +15,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\Json;
 use YandexWebmaster\Value\SiteStat;
 
-class GetSiteStatActionHandler implements ActionHandlerInterface
+final class GetSiteStatActionHandler implements ActionHandlerInterface
 {
     /**
      * @var array

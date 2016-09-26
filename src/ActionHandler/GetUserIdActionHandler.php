@@ -11,7 +11,7 @@ use Yandex\Http\Response;
 use Yandex\Utils\Json;
 use YandexWebmaster\Exception\NoUserIdFoundException;
 
-class GetUserIdActionHandler implements ActionHandlerInterface
+final class GetUserIdActionHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response

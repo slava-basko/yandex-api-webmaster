@@ -10,7 +10,7 @@ use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 use YandexWebmaster\Auth\User;
 
-class VerifySiteAction implements ActionInterface
+final class VerifySiteAction implements ActionInterface
 {
     const VERIFICATION_TYPE_DNS = 'DNS';
     const VERIFICATION_TYPE_HTML_FILE = 'HTML_FILE';

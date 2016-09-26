@@ -10,7 +10,7 @@ use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 use YandexWebmaster\Auth\User;
 
-class GetSiteStatAction implements ActionInterface
+final class GetSiteStatAction implements ActionInterface
 {
     /**
      * @var User

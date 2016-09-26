@@ -16,7 +16,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\Json;
 use YandexWebmaster\Value\SiteVerificationStatus;
 
-class VerifySiteActionHandler implements ActionHandlerInterface
+final class VerifySiteActionHandler implements ActionHandlerInterface
 {
     /**
      * @var array

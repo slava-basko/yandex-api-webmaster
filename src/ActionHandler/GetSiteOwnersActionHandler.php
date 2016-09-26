@@ -17,7 +17,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\Json;
 use YandexWebmaster\Value\SiteOwner;
 
-class GetSiteOwnersActionHandler implements ActionHandlerInterface
+final class GetSiteOwnersActionHandler implements ActionHandlerInterface
 {
     /**
      * @var array

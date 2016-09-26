@@ -10,7 +10,7 @@ use Yandex\Action\ActionInterface;
 use Yandex\Auth\Token;
 use YandexWebmaster\Auth\User;
 
-class GetSiteOwnersAction implements ActionInterface
+final class GetSiteOwnersAction implements ActionInterface
 {
     /**
      * @var User
