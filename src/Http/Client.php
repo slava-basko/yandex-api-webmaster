@@ -7,6 +7,7 @@
 namespace YandexWebmaster\Http;
 
 use YandexWebmaster\Action\AddSiteAction;
+use YandexWebmaster\Action\AddSitemapAction;
 use YandexWebmaster\Action\DeleteSiteAction;
 use YandexWebmaster\Action\GetListOfSitesAction;
 use YandexWebmaster\Action\GetSiteAction;
@@ -16,6 +17,7 @@ use YandexWebmaster\Action\GetUserIdAction;
 use YandexWebmaster\Action\GetSiteVerificationStatusAction;
 use YandexWebmaster\Action\VerifySiteAction;
 use YandexWebmaster\ActionHandler\AddSiteActionHandler;
+use YandexWebmaster\ActionHandler\AddSitemapActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
 use YandexWebmaster\ActionHandler\GetSiteActionHandler;
@@ -39,7 +41,8 @@ class Client
         GetSiteStatAction::class => GetSiteStatActionHandler::class,
         GetSiteVerificationStatusAction::class => GetSiteVerificationStatusActionHandler::class,
         VerifySiteAction::class => VerifySiteActionHandler::class,
-        GetSiteOwnersAction::class => GetSiteOwnersActionHandler::class
+        GetSiteOwnersAction::class => GetSiteOwnersActionHandler::class,
+        AddSitemapAction::class => AddSitemapActionHandler::class
     ];
 
     /**
