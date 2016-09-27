@@ -6,6 +6,7 @@
 
 namespace YandexWebmaster\Http;
 
+use Yandex\Http\Curl;
 use YandexWebmaster\Action\AddSiteAction;
 use YandexWebmaster\Action\AddSitemapAction;
 use YandexWebmaster\Action\DeleteSiteAction;
@@ -55,7 +56,8 @@ class Client
         $client = new \Yandex\Http\Client(
             'https://api.webmaster.yandex.net/v3/user',
             $clientId,
-            $clientPassword
+            $clientPassword,
+            new Curl()
         );
 
         foreach (static::$actionHandlerMap as $action => $handler) {
