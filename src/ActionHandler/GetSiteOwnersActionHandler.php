@@ -38,10 +38,10 @@ final class GetSiteOwnersActionHandler implements ActionHandlerInterface
         $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 200) {
             $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass($responseData['error_message']);
+            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
         }
         if (isset($responseData['users']) == false) {
-            throw new BadResponseException('Bad response.' . var_export($responseData));
+            throw new BadResponseException('Bad response.' . var_export($responseData, true));
         }
 
         $owners = [];

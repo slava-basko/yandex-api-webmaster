@@ -41,7 +41,7 @@ final class AddSitemapActionHandler implements ActionHandlerInterface
 
         $responseData = Json::decode($response->getBody());
         if (isset($responseData['sitemap_id']) == false) {
-            throw new BadResponseException('Bad response.' . var_export($responseData));
+            throw new BadResponseException('Bad response.' . var_export($responseData, true));
         }
 
         return (string)$responseData['sitemap_id'];

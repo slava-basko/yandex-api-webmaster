@@ -24,10 +24,10 @@ final class AddSiteActionHandler implements ActionHandlerInterface
     {
         $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 201) {
-            throw new CanNotAddSiteException($responseData);
+            throw new CanNotAddSiteException(\Yandex\apiJsonErrorToMessage($response));
         }
         if (isset($responseData['host_id']) == false) {
-            throw new BadResponseException('Bad response.' . var_export($responseData));
+            throw new BadResponseException('Bad response.' . var_export($responseData, true));
         }
         return $responseData['host_id'];
     }
