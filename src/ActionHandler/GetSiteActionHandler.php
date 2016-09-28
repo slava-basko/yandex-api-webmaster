@@ -32,11 +32,12 @@ final class GetSiteActionHandler implements ActionHandlerInterface
      */
     public function handle(Response $response)
     {
-        $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 200) {
             $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass($responseData['error_message']);
+            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
         }
+
+        $responseData = Json::decode($response->getBody());
 
         return Site::fromArray([
             'host_id' => Hash::get($responseData, 'host_id'),
