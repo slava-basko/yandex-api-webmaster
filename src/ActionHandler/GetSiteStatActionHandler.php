@@ -43,7 +43,7 @@ final class GetSiteStatActionHandler implements ActionHandlerInterface
             'downloaded_pages_count' => Hash::get($responseData, 'downloaded_pages_count', 0),
             'excluded_pages_count' => Hash::get($responseData, 'excluded_pages_count', 0),
             'searchable_pages_count' => Hash::get($responseData, 'searchable_pages_count', 0),
-            'main_mirror' => Hash::get($responseData, 'site_problems')
+            'site_problems' => Hash::get($responseData, 'site_problems')
         ]);
     }
 }
