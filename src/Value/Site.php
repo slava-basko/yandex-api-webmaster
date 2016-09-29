@@ -6,7 +6,7 @@
 
 namespace YandexWebmaster\Value;
 
-final class Site
+class Site
 {
     /**
      * @var string
