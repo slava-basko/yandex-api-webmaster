@@ -7,13 +7,25 @@
 namespace YandexWebmaster\ActionHandler;
 
 use Yandex\ActionHandler\ActionHandlerInterface;
+use Yandex\Exception\BadRequestException;
 use Yandex\Exception\BadResponseException;
+use Yandex\Exception\ConflictException;
+use Yandex\Exception\ForbiddenException;
 use Yandex\Http\Response;
 use Yandex\Utils\Json;
 use YandexWebmaster\Exception\CanNotAddSiteException;
 
 final class AddSiteActionHandler implements ActionHandlerInterface
 {
+    /**
+     * @var array
+     */
+    private $exceptionsMap = array(
+        400 => BadRequestException::class,
+        403 => ForbiddenException::class,
+        409 => ConflictException::class
+    );
+
     /**
      * @param Response $response
      * @return string
@@ -22,10 +34,12 @@ final class AddSiteActionHandler implements ActionHandlerInterface
      */
     public function handle(Response $response)
     {
-        $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 201) {
-            throw new CanNotAddSiteException(\Yandex\apiJsonErrorToMessage($response));
+            $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
+            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
         }
+
+        $responseData = Json::decode($response->getBody());
         if (isset($responseData['host_id']) == false) {
             throw new BadResponseException('Bad response.' . var_export($responseData, true));
         }
