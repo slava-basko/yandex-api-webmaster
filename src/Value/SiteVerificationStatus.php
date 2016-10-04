@@ -9,6 +9,12 @@ namespace YandexWebmaster\Value;
 
 class SiteVerificationStatus
 {
+    const VERIFICATION_STATUS_NONE = 'NONE';
+    const VERIFICATION_STATUS_VERIFIED = 'VERIFIED';
+    const VERIFICATION_STATUS_IN_PROGRESS = 'IN_PROGRESS';
+    const VERIFICATION_STATUS_VERIFICATION_FAILED = 'VERIFICATION_FAILED';
+    const VERIFICATION_STATUS_INTERNAL_ERROR = 'INTERNAL_ERROR';
+
     private $verificationUin;
 
     private $verificationState;
