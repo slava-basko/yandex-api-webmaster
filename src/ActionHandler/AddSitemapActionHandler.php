@@ -34,12 +34,18 @@ final class AddSitemapActionHandler implements ActionHandlerInterface
      */
     public function handle(Response $response)
     {
+        $responseData = Json::decode($response->getBody());
+
         if ($response->getStatusCode() != 201) {
+            $extra = [];
+            if (isset($responseData['sitemap_id'])) {
+                $extra['sitemap_id'] = $responseData['sitemap_id'];
+            }
+
             $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
+            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response), 0, null, $extra);
         }
 
-        $responseData = Json::decode($response->getBody());
         if (isset($responseData['sitemap_id']) == false) {
             throw new BadResponseException('Bad response.' . var_export($responseData, true));
         }
