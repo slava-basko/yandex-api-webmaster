@@ -13,7 +13,7 @@ use Yandex\Utils\Hash;
 use Yandex\Utils\Json;
 use YandexWebmaster\Value\Site;
 
-final class GetListOfSitesHandler implements ActionHandlerInterface
+final class GetListOfSitesActionHandler implements ActionHandlerInterface
 {
     /**
      * @param Response $response

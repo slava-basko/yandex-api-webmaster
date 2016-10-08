@@ -7,6 +7,7 @@
 namespace YandexWebmaster\Http;
 
 use Yandex\Http\Curl;
+use Yandex\Http\CurlInterface;
 use YandexWebmaster\Action\AddOriginalTextAction;
 use YandexWebmaster\Action\AddSiteAction;
 use YandexWebmaster\Action\AddSitemapAction;
@@ -26,7 +27,7 @@ use YandexWebmaster\ActionHandler\AddSitemapActionHandler;
 use YandexWebmaster\ActionHandler\DeleteOriginalTextActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSitemapActionHandler;
-use YandexWebmaster\ActionHandler\GetListOfSitesHandler;
+use YandexWebmaster\ActionHandler\GetListOfSitesActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteOwnersActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteStatActionHandler;
@@ -41,7 +42,7 @@ class Client
      */
     private static $actionHandlerMap = [
         GetUserIdAction::class => GetUserIdActionHandler::class,
-        GetListOfSitesAction::class => GetListOfSitesHandler::class,
+        GetListOfSitesAction::class => GetListOfSitesActionHandler::class,
         AddSiteAction::class => AddSiteActionHandler::class,
         DeleteSiteAction::class => DeleteSiteActionHandler::class,
         GetSiteAction::class => GetSiteActionHandler::class,
@@ -58,15 +59,20 @@ class Client
     /**
      * @param $clientId
      * @param $clientPassword
+     * @param CurlInterface $curl
      * @return \Yandex\Http\Client
      */
-    public static function create($clientId, $clientPassword)
+    public static function create($clientId, $clientPassword, CurlInterface $curl = null)
     {
+        if (is_null($curl)) {
+            $curl = new Curl();
+        }
+
         $client = new \Yandex\Http\Client(
             'https://api.webmaster.yandex.net/v3/user',
             $clientId,
             $clientPassword,
-            new Curl()
+            $curl
         );
 
         foreach (static::$actionHandlerMap as $action => $handler) {
