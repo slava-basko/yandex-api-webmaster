@@ -14,6 +14,7 @@ use YandexWebmaster\Action\AddSitemapAction;
 use YandexWebmaster\Action\DeleteOriginalTextAction;
 use YandexWebmaster\Action\DeleteSiteAction;
 use YandexWebmaster\Action\DeleteSitemapAction;
+use YandexWebmaster\Action\GetExternalLinksAction;
 use YandexWebmaster\Action\GetListOfSitesAction;
 use YandexWebmaster\Action\GetSiteAction;
 use YandexWebmaster\Action\GetSiteOwnersAction;
@@ -27,6 +28,7 @@ use YandexWebmaster\ActionHandler\AddSitemapActionHandler;
 use YandexWebmaster\ActionHandler\DeleteOriginalTextActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSiteActionHandler;
 use YandexWebmaster\ActionHandler\DeleteSitemapActionHandler;
+use YandexWebmaster\ActionHandler\GetExternalLinksActionHandler;
 use YandexWebmaster\ActionHandler\GetListOfSitesActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteActionHandler;
 use YandexWebmaster\ActionHandler\GetSiteOwnersActionHandler;
@@ -53,7 +55,8 @@ class Client
         AddSitemapAction::class => AddSitemapActionHandler::class,
         DeleteSitemapAction::class => DeleteSitemapActionHandler::class,
         AddOriginalTextAction::class => AddOriginalTextActionHandler::class,
-        DeleteOriginalTextAction::class => DeleteOriginalTextActionHandler::class
+        DeleteOriginalTextAction::class => DeleteOriginalTextActionHandler::class,
+        GetExternalLinksAction::class => GetExternalLinksActionHandler::class
     ];
 
     /**
