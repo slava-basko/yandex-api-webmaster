@@ -54,6 +54,6 @@ final class GetExternalLinksActionHandler implements ActionHandlerInterface
             ]);
         }
 
-        return new ExternalLinkCollection($links);
+        return new ExternalLinkCollection((int)$responseData['count'], $links);
     }
 }
