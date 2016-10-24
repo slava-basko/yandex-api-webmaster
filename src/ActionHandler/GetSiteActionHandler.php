@@ -46,7 +46,7 @@ final class GetSiteActionHandler implements ActionHandlerInterface
             'verified' => Hash::get($responseData, 'verified', false),
             'main_mirror' => Hash::get($responseData, 'main_mirror', []),
             'host_data_status' => Hash::get($responseData, 'host_data_status'),
-            'host_display_name' => Hash::get($responseData, 'main_mirror'),
+            'host_display_name' => Hash::get($responseData, 'host_display_name'),
         ]);
     }
 }
