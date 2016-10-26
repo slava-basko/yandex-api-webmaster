@@ -26,8 +26,7 @@ final class DeleteSitemapActionHandler implements ActionHandlerInterface
     public function handle(Response $response)
     {
         if ($response->getStatusCode() != 204) {
-            $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
+            \Yandex\throwExceptionByResponseCode($this->exceptionsMap, $response);
         }
         return true;
     }

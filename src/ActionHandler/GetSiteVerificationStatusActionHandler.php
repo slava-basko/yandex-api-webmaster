@@ -34,8 +34,7 @@ final class GetSiteVerificationStatusActionHandler implements ActionHandlerInter
     {
         $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 200) {
-            $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass($responseData['error_message']);
+            \Yandex\throwExceptionByResponseCode($this->exceptionsMap, $response);
         }
 
         return SiteVerificationStatus::fromArray([

@@ -37,8 +37,7 @@ final class GetExternalLinksActionHandler implements ActionHandlerInterface
     {
         $responseData = Json::decode($response->getBody());
         if ($response->getStatusCode() != 200) {
-            $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass($responseData['error_message']);
+            \Yandex\throwExceptionByResponseCode($this->exceptionsMap, $response);
         }
         if (isset($responseData['links']) == false) {
             throw new BadResponseException('Bad response.' . var_export($responseData, true));

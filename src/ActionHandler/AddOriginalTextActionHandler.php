@@ -40,8 +40,7 @@ final class AddOriginalTextActionHandler implements ActionHandlerInterface
     public function handle(Response $response)
     {
         if ($response->getStatusCode() != 201) {
-            $exceptionClass = $this->exceptionsMap[$response->getStatusCode()];
-            throw new $exceptionClass(\Yandex\apiJsonErrorToMessage($response));
+            \Yandex\throwExceptionByResponseCode($this->exceptionsMap, $response);
         }
 
         $responseData = Json::decode($response->getBody());
