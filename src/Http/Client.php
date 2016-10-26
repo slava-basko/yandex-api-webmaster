@@ -6,6 +6,7 @@
 
 namespace YandexWebmaster\Http;
 
+use Psr\Log\LoggerInterface;
 use Yandex\Http\Curl;
 use Yandex\Http\CurlInterface;
 use YandexWebmaster\Action\AddOriginalTextAction;
@@ -39,6 +40,8 @@ use YandexWebmaster\ActionHandler\VerifySiteActionHandler;
 
 class Client
 {
+    const API_URL = 'https://api.webmaster.yandex.net/v3/user';
+
     /**
      * @var array
      */
@@ -62,21 +65,32 @@ class Client
     /**
      * @param $clientId
      * @param $clientPassword
+     * @param null $logger
      * @param CurlInterface $curl
      * @return \Yandex\Http\Client
      */
-    public static function create($clientId, $clientPassword, CurlInterface $curl = null)
+    public static function create($clientId, $clientPassword, $logger = null, CurlInterface $curl = null)
     {
         if (is_null($curl)) {
             $curl = new Curl();
         }
 
-        $client = new \Yandex\Http\Client(
-            'https://api.webmaster.yandex.net/v3/user',
-            $clientId,
-            $clientPassword,
-            $curl
-        );
+        if ($logger instanceof LoggerInterface) {
+            $client = new \Yandex\Http\LoggableClient(
+                static::API_URL,
+                $clientId,
+                $clientPassword,
+                $curl,
+                $logger
+            );
+        } else {
+            $client = new \Yandex\Http\Client(
+                static::API_URL,
+                $clientId,
+                $clientPassword,
+                $curl
+            );
+        }
 
         foreach (static::$actionHandlerMap as $action => $handler) {
             $client->addActionHandler($action, $handler);
