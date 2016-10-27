@@ -22,7 +22,8 @@ final class GetUserIdActionHandler implements ActionHandlerInterface
     {
         $userData = Json::decode($response->getBody());
         if (isset($userData['user_id']) == false) {
-            throw new NoUserIdFoundException();
+            $msg = isset($userData['error_message']) ? $userData['error_message']: 'Get user ID error.';
+            throw new NoUserIdFoundException($msg);
         }
         return $userData['user_id'];
     }
